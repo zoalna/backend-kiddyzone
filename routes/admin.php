@@ -57,5 +57,7 @@ Route::group(['middleware' => ['roles']], function () {
     Route::resource('contacts', ContactController::class)->except('create', 'edit', 'update');
     Route::resource('links', LinkController::class)->except('show');
     Route::resource('pages', PageController::class);
+
+    //new routes here..
 });
 
