@@ -7,6 +7,8 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    
+
     public function show($slug)
     {
         $product = Product::with('media', 'category', 'tags', 'approvedReviews')

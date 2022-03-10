@@ -21,7 +21,6 @@ class HomeController extends Controller
             ->whereParentId(null)
             ->limit(4)
             ->get();
-
         return view('frontend.index', compact('categories', 'coupon'));
     }
 
