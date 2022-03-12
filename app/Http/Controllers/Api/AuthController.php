@@ -17,7 +17,7 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            if(1 == 1){
+            if(isset($user)){
                 $access_token =  $user->createToken('MyApp')->accessToken;
                 $id = auth()->user()->id;
 

@@ -18,9 +18,9 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         if ($this->user_image == 'placeholder.png') {
-                    $user_image = URL::to('/') . Storage::disk('local')->url('app/public/images/users/' . $this->user_image);
+                    $user_image = URL::to('/') . Storage::disk('local')->url('images/users/' . $this->user_image);
         }else{
-                    $user_image = URL::to('/') . Storage::disk('local')->url('app/public/images/users/'. $this->user_image);
+                    $user_image = URL::to('/') . Storage::disk('local')->url('images/users/'. $this->user_image);
         }
         $user_image = $user_image;
 
