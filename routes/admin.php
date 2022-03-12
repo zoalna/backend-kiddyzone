@@ -19,6 +19,7 @@ use App\Http\Controllers\Backend\ShippingCompanyController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\AgeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['roles']], function () {
     Route::resource('contacts', ContactController::class)->except('create', 'edit', 'update');
     Route::resource('links', LinkController::class)->except('show');
     Route::resource('pages', PageController::class);
+    Route::get('ages-link',  [AgeController::class, 'index'])->name('ages');
+    Route::resource('ages', AgeController::class);
 
     //new routes here..
 });
