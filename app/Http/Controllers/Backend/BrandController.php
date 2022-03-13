@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brands;
+use App\Traits\ImageUploadTrait;
 
 class BrandController extends Controller
 {
+    use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +43,23 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('access_brands');
+
+        $image = NULL;
+        if ($request->hasFile('cover')) {
+            $image = $this->uploadImage($request->name , $request->cover, 'brands', 500, NULL);
+        }
+
+        Brands::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image_url' => $image
+        ]);
+
+        return redirect()->route('admin.brands.index')->with([
+            'message' => 'Created successfully',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**

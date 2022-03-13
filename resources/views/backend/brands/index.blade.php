@@ -51,7 +51,7 @@
                         <td>{{ $brand->created_at }}</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.brands.edit', $age) }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.brands.edit', $brands) }}" class="btn btn-sm btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 <a href="javascript:void(0);"
