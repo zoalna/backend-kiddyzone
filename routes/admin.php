@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\AgeController;
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['roles']], function () {
     Route::resource('pages', PageController::class);
     Route::get('ages-link',  [AgeController::class, 'index'])->name('ages');
     Route::resource('ages', AgeController::class);
+    Route::get('brands-link',  [BrandController::class, 'index'])->name('brands');
+    Route::resource('brands', BrandController::class);
 
     //new routes here..
 });
