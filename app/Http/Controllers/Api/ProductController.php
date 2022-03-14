@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AgeResource;
 use App\Http\Resources\BrandResource;
+use App\Http\Resources\PartnerResource;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
+use App\Http\ResourcesResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ages;
 use App\Models\Brands;
+use App\Models\Partner;
 
 class ProductController extends Controller
 {
@@ -20,27 +25,59 @@ class ProductController extends Controller
 
         $shopByAge = Ages::all();
         $shopByBrands = Brands::all();
+        $shopByPartners = Partner::all();
 
-        $categories = Category::select('slug', 'cover', 'name')
-            ->active()
+        $categories = Category::
+            active()
             ->whereParentId(null)
             ->limit(5)
             ->get();
-        $products = Product::select('id', 'slug', 'name', 'price')
-            ->with('firstMedia')
+        $hot_products = Product::
+             with('firstMedia')
             ->inRandomOrder()
             ->featured()
             ->active()
             ->hasQuantity()
             ->activeCategory()
-            ->take(8)
+            ->take(4)
             ->get();
 
-        $data['shop_by_age'] =   AgeResource::collection($shopByAge);
-        $data['shop_by_brands'] =   BrandResource::collection($shopByBrands);;        
-        $data['shop_by_categories'] = $categories;
-        $data['products'] = $products;
+        $latest_products = Product::
+             with('firstMedia')
+             ->latest()
+            ->active()
+            ->hasQuantity()
+            ->activeCategory()
+            ->take(4)
+            ->get();
 
+        $recent_products =Product::
+        with('firstMedia')
+        ->latest()
+       ->active()
+       ->hasQuantity()
+       ->activeCategory()
+       ->take(4)
+       ->get();
+
+        $deal_products = Product::
+           with('firstMedia')
+          ->inRandomOrder()
+          ->featured()
+          ->active()
+          ->hasQuantity()
+          ->activeCategory()
+          ->take(1)
+          ->get();   
+
+        $data['shop_by_age'] =   AgeResource::collection($shopByAge);
+        $data['shop_by_brands'] =   BrandResource::collection($shopByBrands);     
+        $data['shop_by_partners'] =   PartnerResource::collection($shopByPartners);    
+        $data['shop_by_categories'] = CategoryResource::collection($categories); 
+        $data['hot_products'] = ProductResource::collection($hot_products);
+        $data['latest_products'] = ProductResource::collection($latest_products);
+        $data['recent_products'] = ProductResource::collection($recent_products);
+        $data['deal_products'] = ProductResource::collection($deal_products);
         
         if(!empty($data)){
             $response_data = [
