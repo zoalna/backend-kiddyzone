@@ -29,7 +29,6 @@ class ProductController extends Controller
 
         $categories = Category::
             active()
-            ->whereParentId(null)
             ->limit(5)
             ->get();
         $hot_products = Product::
