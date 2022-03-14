@@ -18,15 +18,16 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {       
            
-        
-        
-        if ($this->firstMedia->file_name == 'placeholder.png' || $this->firstMedia->file_name == null) {
-            $image_url = URL::to('/') . Storage::disk('local')->url('images/' . $this->firstMedia->file_name);
-            }else{
+            $image_url = null;
+            if(isset($this->firstMedia)){
+                if ($this->firstMedia->file_name == 'placeholder.png' || $this->firstMedia->file_name == null) {
+                    $image_url = URL::to('/') . Storage::disk('local')->url('images/' . $this->firstMedia->file_name);
+                    }else{
                         $image_url = URL::to('/') . Storage::disk('local')->url('images/products/'. $this->firstMedia->file_name);
+                    }
             }
+            
             $image_url = $image_url;
-
             return [
                 'id' => $this->id,
                 'name' => $this->name,
