@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AgeResource;
+use App\Http\Resources\BrandResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ages;
+use App\Models\Brands;
 
 class ProductController extends Controller
 {
@@ -17,6 +19,7 @@ class ProductController extends Controller
     public function showAll(){
 
         $shopByAge = Ages::all();
+        $shopByBrands = Brands::all();
 
         $categories = Category::select('slug', 'cover', 'name')
             ->active()
@@ -33,7 +36,8 @@ class ProductController extends Controller
             ->take(8)
             ->get();
 
-        $data['shop_by_age'] =   AgeResource::collection($shopByAge);;      
+        $data['shop_by_age'] =   AgeResource::collection($shopByAge);
+        $data['shop_by_brands'] =   BrandResource::collection($shopByBrands);;        
         $data['shop_by_categories'] = $categories;
         $data['products'] = $products;
 

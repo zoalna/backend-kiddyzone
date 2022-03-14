@@ -1,14 +1,13 @@
 <?php
-
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use URL;
 use Storage;
 
-class AgeResource extends JsonResource
+class PartnerResource extends JsonResource
 {
-    /**
+      /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -19,14 +18,14 @@ class AgeResource extends JsonResource
             if ($this->image_url == 'placeholder.png' || $this->image_url == null) {
             $image_url = URL::to('/') . Storage::disk('local')->url('images/' . $this->image_url);
             }else{
-                        $image_url = URL::to('/') . Storage::disk('local')->url('images/ages/'. $this->image_url);
+                        $image_url = URL::to('/') . Storage::disk('local')->url('images/partners/'. $this->image_url);
             }
             $image_url = $image_url;
 
             return [
                 'id' => $this->id,
-                'from_age' => $this->from_age,
-                'to_age' => $this->to_age,
+                'name' => $this->name,
+                'description' => $this->description,
                 'image_url'  => $image_url 
             ];
     }
