@@ -21,6 +21,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\AgeController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\PartnerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -63,7 +64,8 @@ Route::group(['middleware' => ['roles']], function () {
     Route::resource('ages', AgeController::class);
     Route::get('brands-link',  [BrandController::class, 'index'])->name('brands');
     Route::resource('brands', BrandController::class);
-
+    Route::get('partners-link',  [PartnerController::class, 'index'])->name('partners');
+    Route::resource('partners', PartnerController::class);
     //new routes here..
 });
 
