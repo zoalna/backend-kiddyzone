@@ -38,7 +38,7 @@ class ProductController extends Controller
             ->active()
             ->hasQuantity()
             ->activeCategory()
-            ->take(4)
+            ->take(6)
             ->get();
 
         $latest_products = Product::
@@ -47,7 +47,7 @@ class ProductController extends Controller
             ->active()
             ->hasQuantity()
             ->activeCategory()
-            ->take(4)
+            ->take(6)
             ->get();
 
         $recent_products =Product::
@@ -56,7 +56,7 @@ class ProductController extends Controller
        ->active()
        ->hasQuantity()
        ->activeCategory()
-       ->take(4)
+       ->take(6)
        ->get();
 
         $deal_products = Product::
@@ -66,7 +66,7 @@ class ProductController extends Controller
           ->active()
           ->hasQuantity()
           ->activeCategory()
-          ->take(1)
+          ->take(6)
           ->get();   
 
         $data['shop_by_age'] =   AgeResource::collection($shopByAge);
