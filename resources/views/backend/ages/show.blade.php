@@ -4,11 +4,11 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
             <h6 class="m-0 font-weight-bold text-primary">
-                {{ $category->name }}
+                {{ $ages->name }}
             </h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-primary">
-                    <span class="text">Back to categories</span>
+                <a href="{{ route('admin.ages.index') }}" class="btn btn-primary">
+                    <span class="text">Back to Ages</span>
                 </a>
             </div>
         </div>
@@ -16,20 +16,20 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Parent</th>
-                    <th>Description</th>
-                    <th>Status</th>
+                    <th>ID</th>
+                    <th>From age</th>
+                    <th>To age</th>
+                    <th>Image</th>
                     <th>Created at</th>
+                    <th class="text-center" style="width: 30px;">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->parent->name ?? '' }}</td>
-                    <td>{{ $category->description }}</td>
-                    <td>{{ $category->status }}</td>
-                    <td>{{ $category->created_at }}</td>
+                    <td>{{ $ages->id }}</td>
+                    <td>{{ $ages->from_age }}</td>
+                    <td>{{ $ages->to_age }}</td>
+                    <td>{{ $ages->created_at }}</td>
                 </tr>
                 </tbody>
             </table>
