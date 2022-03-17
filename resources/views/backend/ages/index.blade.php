@@ -51,7 +51,7 @@
                         <td>{{ $age->created_at }}</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.categories.edit', $age) }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.ages.edit', $age) }}" class="btn btn-sm btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 <a href="javascript:void(0);"
@@ -61,7 +61,7 @@
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>
-                            <form action="{{ route('admin.categories.destroy', $age) }}"
+                            <form action="{{ route('admin.ages.destroy', $age) }}"
                                   method="POST"
                                   id="delete-category-{{ $age->id }}" class="d-none">
                                 @csrf

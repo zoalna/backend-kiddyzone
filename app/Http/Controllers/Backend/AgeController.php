@@ -69,9 +69,11 @@ class AgeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ages $ages): View
     {
-        //
+        $this->authorize('show_category');
+
+        return view('backend.ages.show', compact('ages'));
     }
 
     /**
@@ -82,7 +84,11 @@ class AgeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->authorize('edit_category');
+
+        $ages = Ages::where('id',$id)->first();
+        // dd($ages);
+        return view('backend.ages.edit', compact('ages'));
     }
 
     /**
