@@ -108,6 +108,8 @@ class AuthController extends Controller
                 'status' => true
             ]
         );
+        $user->assignRole('user');
+        
         $data = User::find($user->id);
         // $data->fname = $input['fname'];
         // $code = rand(999, 99999);
