@@ -51,12 +51,21 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name'         => 'required',
             'last_name'         => 'required',
-            'email'         => 'required|email|unique:users',
+            'email'         => 'required|email',
             'password'      => 'required',
             'confirm_password'    => 'required',
         ]);
 
-
+        $userexist = User::where("email",$request->email)->exists();
+        if($userexist == true ){
+            $response_data = [
+                'success' => 0,
+                'message' => 'User Email Already exist!',
+                'email' => '',
+                'user' => null,
+            ];
+            return response()->json($response_data);
+        }
         if( $request->password != $request->confirm_password )
         {
             $response_data = [
@@ -93,6 +102,7 @@ class AuthController extends Controller
             [
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
+                "email" => $request->email,
                 'username' => $request->first_name . $request->last_name,
                 'password' => bcrypt($request->password),
                 'status' => true
