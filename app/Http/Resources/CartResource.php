@@ -47,9 +47,9 @@ class CartResource extends JsonResource
             'product_id' => $this->product_id,
             'quantity' => $this->quantity,
             'status' => $this->status,
-            'product_name' => $product->name,
+            'product_name' => isset($product->name)  ? $product->name : null,
             'product_subTotal' => $product_subTotal,
-            'unit_price' => $product->price,
+            'unit_price' =>  isset($product->price)  ? $product->price : null,
             'product_image_url' => $image_url,
             'extras' => $extras
         ]; 
