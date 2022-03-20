@@ -15,14 +15,17 @@ Route::get('/product/{slug}', [ProductController::class, 'productDetails'])->nam
 
 //Cart routes
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
-Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.store');
-Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
-Route::post('remove-cart', [CartController::class, 'removeCart'])->name('cart.remove');
-Route::post('clear-cart', [CartController::class, 'clearAllCart'])->name('cart.clear');
+
+
+
+
 
 Route::group(['middleware' => 'auth:api'], function(){
 
-        //authentication token required apis here...
+        Route::post('clear-cart', [CartController::class, 'clearAllCart'])->name('cart.clear');
+        Route::post('remove-cart', [CartController::class, 'removeCart'])->name('cart.remove');
+        Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+        Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.store');
         Route::get('/my-order', [ProductController::class, 'myOrders'])->name('order.show');
         Route::get('/profile', [ProductController::class, 'profile'])->name('user.profile');
         
