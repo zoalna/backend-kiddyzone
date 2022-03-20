@@ -46,10 +46,13 @@ class AuthController extends Controller
                     
                 }
 
-                $carts = Cart::where('status','active')->where('user_id',$user->id)->get();
-                if(count($carts) > 0 ){
-                    $carts = $carts;
+                if(!empty($user)){
+                    $carts = Cart::where('status','active')->where('user_id',$user->id)->get();
+                    if(count($carts) > 0 ){
+                        $carts = $carts;
+                    }
                 }
+                
 
                 $response_data = [
                     'success' => true,
