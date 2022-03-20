@@ -8,6 +8,7 @@ use App\Http\Resources\CartResource;
 use App\Services\CartService;
 use App\Models\Product;
 use App\Models\Cart;
+use Auth;
 
 class CartController extends Controller
 {
@@ -24,9 +25,9 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $user = auth()->user()->id;
+        $user = Auth::user();
         if(isset($request->product_id)){
-            $exisit = Cart::where('user_id',$user)->where('product_id',$request->product_id)->where('status','active')->first();
+            $exisit = Cart::where('user_id',$user->id)->where('product_id',$request->product_id)->where('status','active')->first();
             if($exisit){
                 Cart::where('id',$exisit->id)->update([
                     'quantity' => $request->quantity
@@ -42,7 +43,7 @@ class CartController extends Controller
             }else{
 
                 $data = Cart::create([
-                    'user_id' => auth()->user()->id, 
+                    'user_id' => $user->id, 
                     'product_id' => $request->product_id,
                     'quantity' =>   $request->quantity,
                     'status' => 'active'
@@ -61,8 +62,8 @@ class CartController extends Controller
 
     public function removeCart(Request $request){
 
-        $user = auth()->user()->id;
-        $exisit = Cart::where('user_id',$user)->where('product_id',$request->product_id)->where('status','active')->first();
+        $user = Auth::user();
+        $exisit = Cart::where('user_id',$user->id)->where('product_id',$request->product_id)->where('status','active')->first();
             if($exisit){
                 Cart::where('id',$exisit->id)->delete();
 
