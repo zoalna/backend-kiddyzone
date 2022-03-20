@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\CartResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Validator;
+use App\Models\Cart;
 
 class AuthController extends Controller
 {   
@@ -21,12 +23,40 @@ class AuthController extends Controller
             if(isset($user)){
                 $access_token =  $user->createToken('MyApp')->accessToken;
                 $id = auth()->user()->id;
+                $carts = [];
+                
+                if($request->has('cart_items')){
+                    foreach($request->cart_items as $item){
+                        $exist = Cart::where('user_id',$user->id)->where('product_id',$item['product_id'])->where('status','active')->exists();
+                        if($exist == true){
+                            Cart::where('user_id',$user->id)->where('product_id',$item['product_id'])->where('status','active')
+                                    ->update([
+                                        'quantity' => $item['quantity']
+                                    ]);
+                        }else{
+                            $data = Cart::create([
+                                'user_id' => $user->id, 
+                                'product_id' => $item['product_id'],
+                                'quantity' =>   $item['quantity'],
+                                'status' => 'active'
+                            ]);
+                        }
+                        
+                    }
+                    
+                }
+
+                $carts = Cart::where('status','active')->where('user_id',$user->id)->get();
+                if(count($carts) > 0 ){
+                    $carts = $carts;
+                }
 
                 $response_data = [
                     'success' => true,
                     'message' => 'Successfully Login!',
                     'auth_token' => $access_token,
-                    'user' => new UserResource($user)
+                    'user' => new UserResource($user),
+                    'cart_items' => CartResource::collection($carts)
                 ];
                 return response()->json($response_data, $this->successStatus);
             }else {
