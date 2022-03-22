@@ -35,6 +35,8 @@ class CartResource extends JsonResource
                     }else{
                         $image_url = URL::to('/') . Storage::disk('local')->url('images/products/'. $product->firstMedia->file_name);
                     }
+            }else{
+                $image_url = url('img/product_placeholder.jpeg');
             }
 
          $extras = [
