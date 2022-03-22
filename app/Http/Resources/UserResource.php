@@ -17,13 +17,16 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->user_image == 'placeholder.png') {
+        $user_image = null;
+        if ($this->user_image == '' || $this->user_image == null) {
                     $user_image = URL::to('/') . Storage::disk('local')->url('images/users/' . $this->user_image);
         }else{
                     $user_image = URL::to('/') . Storage::disk('local')->url('images/users/'. $this->user_image);
         }
         $user_image = $user_image;
-
+        if($user_image == null){
+            url('img/user_placeholder.jpeg');
+        }
         return [
             'id' => $this->id,
             'username' => $this->username,

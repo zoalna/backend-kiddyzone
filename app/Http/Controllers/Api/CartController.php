@@ -17,7 +17,7 @@ class CartController extends Controller
         
         $response_data = [
             'success' => 0,
-            'message' => 'Cart items Found',
+            'message' => '('.count($cart).') cart items found!',
             'data' => CartResource::collection($cart)
         ];
         return response()->json($response_data);

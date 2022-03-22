@@ -17,7 +17,7 @@ class AgeResource extends JsonResource
     public function toArray($request)
     {       
             if ($this->image_url == 'placeholder.png' || $this->image_url == null) {
-            $image_url = URL::to('/') . Storage::disk('local')->url('images/' . $this->image_url);
+            $image_url = url('img/product_placeholder.jpeg');
             }else{
                         $image_url = URL::to('/') . Storage::disk('local')->url('images/ages/'. $this->image_url);
             }
