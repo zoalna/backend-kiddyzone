@@ -33,7 +33,12 @@ class CheckoutController extends Controller
                 if(count($cartItems) > 0){
                     foreach($cartItems as $item){
                         $product = Product::where('id',$item->product_id)->first();
-                        $total = $total + ($product->price * $item->quantity);
+                        if(!empty($product->price)){
+                            $total = $total + ($product->price * $item->quantity);
+                        }else{
+                            $total = $total;
+                        }
+                        
                     }
                     $subTotal = $total;
                 }
